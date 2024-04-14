@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.3.6
+
+### Patch Changes
+
+- refactor: popover listbox class deprecated and set as a default when in floating mode. (by [@thejackshelton](https://github.com/thejackshelton) in [#691](https://github.com/qwikifiers/qwik-ui/pull/691))
+
 ## 0.3.5
 
 ### Patch Changes
