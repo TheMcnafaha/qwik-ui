@@ -31,7 +31,7 @@ async function setup(page: Page, exampleName: string) {
 test.describe('checklist', () => {
   test(`GIVEN a mixed checklist
   WHEN the checklist renders
-  IT should render the mixed img
+  THEN should render the mixed img
   AND not the true img`, async ({ page }) => {
     const exampleName = 'test-controlled-list-mixed';
     await setup(page, exampleName);
@@ -41,7 +41,7 @@ test.describe('checklist', () => {
 
   test(`GIVEN an all-checked checklist
   WHEN the checklist renders
-  IT should  render the true img
+  THEN should  render the true img
   AND not the mixed img`, async ({ page }) => {
     const exampleName = 'test-controlled-list-true';
     await setup(page, exampleName);
@@ -51,7 +51,7 @@ test.describe('checklist', () => {
 
   test(`GIVEN an all-unchecked checklist
   WHEN the checklist renders
-  IT should  render the true img and the mixed img`, async ({ page }) => {
+  THEN should  render the true img and the mixed img`, async ({ page }) => {
     const exampleName = 'test-controlled-list-false';
     await setup(page, exampleName);
     await expect(page.locator('#true-img')).toBeHidden();
@@ -60,7 +60,7 @@ test.describe('checklist', () => {
 
   test(`GIVEN a checklist with checkboxes
         WHEN the elements render
-        IT the checklist should be a <ul> with  <li>s of checkboxes, all wrapped around a div with a role and aria-labeledby attributes`, async ({
+        THEN the checklist should be a <ul> with  <li>s of checkboxes, all wrapped around a div with a role and aria-labeledby attributes`, async ({
     page,
   }) => {
     const { getCheckList, getChecklistUL, getChecklistLIs } = await setup(
@@ -75,7 +75,7 @@ test.describe('checklist', () => {
 
   test(`GIVEN a tri boolean function
         WHEN it recieves an array of booleans
-        IT should return the correct tri bool`, async () => {
+        THEN should return the correct tri bool`, async () => {
     const indeterminateArr = [true, true, false];
     const trueArr = [true, true, true];
     const falseArr = [false, false, false];
@@ -123,7 +123,7 @@ test.describe('checklist', () => {
 
   test(`GIVEN checklist with all unchecked checkboxes
         WHEN the checklist's checkbox is checked
-        IT  all chekboxes should have aria-checked true`, async ({ page }) => {
+        THEN  all chekboxes should have aria-checked true`, async ({ page }) => {
     const exampleName = 'test-list';
     const { getTriCheckbox, getCheckbox } = await setup(page, exampleName);
     await expect(getTriCheckbox()).toBeVisible();
@@ -136,7 +136,7 @@ test.describe('checklist', () => {
   // TODO: reme two part of test by adding new test file
   test(`GIVEN checklist with all unchecked checkboxes
         WHEN the checklist's checkbox is checked twice
-        IT  all chekboxes should go from aria-checked true to aria-checkded false`, async ({
+        THEN  all chekboxes should go from aria-checked true to aria-checkded false`, async ({
     page,
   }) => {
     const exampleName = 'test-list';
@@ -153,7 +153,9 @@ test.describe('checklist', () => {
   });
   test(`GIVEN checklist with checkboxes
         WHEN the values of aria-controls are search
-        IT should always return a valid, non-duplicate, checkboxes`, async ({ page }) => {
+        THEN should always return a valid, non-duplicate, checkboxes`, async ({
+    page,
+  }) => {
     const { getTriCheckbox } = await setup(page, 'test-list');
     await expect(getTriCheckbox()).toHaveAttribute('aria-controls');
     const magic = await getTriCheckbox().getAttribute('aria-controls');
@@ -176,7 +178,7 @@ test.describe('checklist', () => {
 
   test(`GIVEN a controlled checklist with one default checkbox and a controlled checkbox of true
     WHEN it renders
-    IT should have aria-checked mixed`, async ({ page }) => {
+    THEN should have aria-checked mixed`, async ({ page }) => {
     const exampleName = 'test-controlled-list';
     const { getTriCheckbox } = await setup(page, exampleName);
     await expect(getTriCheckbox()).toHaveAttribute('aria-checked', 'mixed');
@@ -184,14 +186,14 @@ test.describe('checklist', () => {
 
   test(`GIVEN a controlled checklist with two true checkboxes
     WHEN it renders
-    IT should have aria-checked true`, async ({ page }) => {
+    THEN should have aria-checked true`, async ({ page }) => {
     const exampleName = 'test-controlled-list-trues';
     const { getTriCheckbox } = await setup(page, exampleName);
     await expect(getTriCheckbox()).toHaveAttribute('aria-checked', 'true');
   });
   test(`GIVEN a controlled checklist with two false checkboxes
     WHEN it renders
-    IT should have aria-checked true`, async ({ page }) => {
+    THEN should have aria-checked true`, async ({ page }) => {
     const exampleName = 'test-controlled-list-falses';
     const { getTriCheckbox } = await setup(page, exampleName);
     await expect(getTriCheckbox()).toHaveAttribute('aria-checked', 'false');
@@ -199,7 +201,7 @@ test.describe('checklist', () => {
 
   test(`GIVEN a controlled checklist with mixed checkboxes
     WHEN it renders
-    IT should have aria-checked mixed`, async ({ page }) => {
+    THEN should have aria-checked mixed`, async ({ page }) => {
     const exampleName = 'test-controlled-list-mixed';
     const { getTriCheckbox } = await setup(page, exampleName);
     await expect(getTriCheckbox()).toHaveAttribute('aria-checked', 'mixed');
@@ -207,7 +209,7 @@ test.describe('checklist', () => {
 
   test(`GIVEN a controlled checklist with a checklist signal of true and default checkboxes as children
     WHEN the checklist renders
-    IT shoud have aria-checked true`, async ({ page }) => {
+    THEN shoud have aria-checked true`, async ({ page }) => {
     const exampleName = 'test-controlled-list-true';
     const { getTriCheckbox } = await setup(page, exampleName);
     await expect(getTriCheckbox()).toHaveAttribute('aria-checked', 'true');
@@ -227,7 +229,7 @@ test.describe('checklist', () => {
   // TODO: change api to not use indeterminate and used mixed instead
   test(`GIVEN a controlled checklist with a checklist signal of true and default checkboxes as children
   WHEN a child checkbox is unchecked
-  IT the checklist signal should have aria-checked mixed`, async ({ page }) => {
+  THEN the checklist signal should have aria-checked mixed`, async ({ page }) => {
     const exampleName = 'test-controlled-list-true';
     const { getTriCheckbox } = await setup(page, exampleName);
     const firstCheckbox = page.locator('#child-1');
@@ -237,7 +239,7 @@ test.describe('checklist', () => {
 
   test(`GIVEN a controlled checklist with a checklist signal of true and default checkboxes as children
   WHEN all child checkbox are unchecked
-  IT the checklist signal should have aria-checked false`, async ({ page }) => {
+  THEN the checklist signal should have aria-checked false`, async ({ page }) => {
     const exampleName = 'test-controlled-list-true';
     const { getTriCheckbox } = await setup(page, exampleName);
     await page.locator('#child-1').press(' ');
@@ -257,7 +259,7 @@ test.describe('checklist', () => {
 
   test(`GIVEN a controlled checklist with every checkbox having a defined ID
     WHEN it renders
-    IT all IDs should be present in the aria-controls`, async ({ page }) => {
+    THEN all IDs should be present in the aria-controls`, async ({ page }) => {
     const { getTriCheckbox } = await setup(page, 'test-props-ids-list');
     const hardChildren = ['child-1', 'child-2'];
     const magic = await getTriCheckbox().getAttribute('aria-controls');
@@ -292,7 +294,7 @@ test.describe('checklist', () => {
 
   test(`GIVEN checklist with all unchecked checkboxes
         WHEN the checklist's checkbox is checked
-        IT  all chekboxes should have aria-checked true`, async ({ page }) => {
+        THEN  all chekboxes should have aria-checked true`, async ({ page }) => {
     const exampleName = 'test-list';
     const { getTriCheckbox, getCheckbox } = await setup(page, exampleName);
     await expect(getTriCheckbox()).toBeVisible();
@@ -305,7 +307,7 @@ test.describe('checklist', () => {
   // TODO: reme two part of test by adding new test file
   test(`GIVEN checklist with all unchecked checkboxes
         WHEN the checklist's checkbox is checked twice
-        IT  all chekboxes should go from aria-checked true to aria-checkded false`, async ({
+        THEN  all chekboxes should go from aria-checked true to aria-checkded false`, async ({
     page,
   }) => {
     const exampleName = 'test-list';
@@ -322,7 +324,9 @@ test.describe('checklist', () => {
   });
   test(`GIVEN checklist with checkboxes
         WHEN the values of aria-controls are search
-        IT should always return a valid, non-duplicate, checkboxes`, async ({ page }) => {
+        THEN should always return a valid, non-duplicate, checkboxes`, async ({
+    page,
+  }) => {
     const { getTriCheckbox } = await setup(page, 'test-list');
     await expect(getTriCheckbox()).toHaveAttribute('aria-controls');
     const magic = await getTriCheckbox().getAttribute('aria-controls');
@@ -340,7 +344,7 @@ test.describe('checklist', () => {
 
   test(`GIVEN a controlled checklist with a checklist signal of true and default checkboxes as children
       WHEN a child checkbox is unchecked
-      IT the checklist signal should have aria-checked mixed`, async ({ page }) => {
+      THEN the checklist signal should have aria-checked mixed`, async ({ page }) => {
     const exampleName = 'test-controlled-list-true';
     const { getTriCheckbox } = await setup(page, exampleName);
     const firstCheckbox = page.locator('#child-1');
@@ -350,7 +354,7 @@ test.describe('checklist', () => {
 
   test(`GIVEN a controlled checklist with a checklist signal of true and default checkboxes as children
       WHEN all child checkbox are unchecked
-      IT the checklist signal should have aria-checked false`, async ({ page }) => {
+      THEN the checklist signal should have aria-checked false`, async ({ page }) => {
     const exampleName = 'test-controlled-list-true';
     const { getTriCheckbox } = await setup(page, exampleName);
     await page.locator('#child-1').click();
@@ -361,7 +365,7 @@ test.describe('checklist', () => {
 test.describe('checkbox', () => {
   test(`GIVEN a checkbox with a user sig value of true
   WHEN the checkbox renders
-  IT should have aria-checked as true`, async ({ page }) => {
+  THEN should have aria-checked as true`, async ({ page }) => {
     const exampleName = 'test-hero';
     const { getCheckbox } = await setup(page, exampleName);
     await expect(getCheckbox()).toBeVisible();
@@ -369,7 +373,7 @@ test.describe('checkbox', () => {
   }),
     test(`GIVEN a checkbox with a user sig value of true
 WHEN the checkbox is focused and the spacebar is pressed
-IT should have aria-checked as false`, async ({ page }) => {
+THEN should have aria-checked as false`, async ({ page }) => {
       const exampleName = 'test-hero';
       const { getCheckbox } = await setup(page, exampleName);
       await expect(getCheckbox()).toBeVisible();
@@ -380,7 +384,7 @@ IT should have aria-checked as false`, async ({ page }) => {
 
   test(`GIVEN a checkbox with a user sig value of true
   WHEN the checkbox is focused and the spacebar is pressed
-  IT should have its icon hidden`, async ({ page }) => {
+  THEN should have its icon hidden`, async ({ page }) => {
     const exampleName = 'test-hero';
     const { getCheckbox, getIcon } = await setup(page, exampleName);
     await expect(getIcon()).toBeVisible();
@@ -391,7 +395,7 @@ IT should have aria-checked as false`, async ({ page }) => {
   });
   test(`GIVEN a default checkbox with a default sig value of false
   WHEN the checkbox is focused and the spacebar is pressed
-  IT should have its icon visible`, async ({ page }) => {
+  THEN should have its icon visible`, async ({ page }) => {
     const exampleName = 'test-default';
     const { getCheckbox, getIcon } = await setup(page, exampleName);
     await expect(getIcon()).toBeHidden();
@@ -403,7 +407,7 @@ IT should have aria-checked as false`, async ({ page }) => {
 
   test(`GIVEN a checkbox with a user sig value of true
         WHEN the checkbox is clicked
-        IT should have aria-checked as false`, async ({ page }) => {
+        THEN should have aria-checked as false`, async ({ page }) => {
     const exampleName = 'test-hero';
     const { getCheckbox } = await setup(page, exampleName);
     await expect(getCheckbox()).toBeVisible();
@@ -413,7 +417,7 @@ IT should have aria-checked as false`, async ({ page }) => {
 
   test(`GIVEN a checkbox with a user sig value of true
         WHEN the checkbox is clicked
-        IT should have its icon hidden`, async ({ page }) => {
+        THEN should have its icon hidden`, async ({ page }) => {
     const exampleName = 'test-hero';
     const { getCheckbox, getIcon } = await setup(page, exampleName);
     await expect(getIcon()).toBeVisible();
@@ -423,7 +427,7 @@ IT should have aria-checked as false`, async ({ page }) => {
   });
   test(`GIVEN a default checkbox with a default sig value of false
         WHEN the checkbox is clicked
-        IT should have its icon visible`, async ({ page }) => {
+        THEN should have its icon visible`, async ({ page }) => {
     const exampleName = 'test-default';
     const { getCheckbox, getIcon } = await setup(page, exampleName);
     await expect(getIcon()).toBeHidden();
