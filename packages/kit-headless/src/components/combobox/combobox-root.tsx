@@ -27,25 +27,29 @@ type TMultiValue =
 
 type TStringOrArray =
   | {
-      multiple?: true;
-      onChange$?: QRL<(value: string[]) => void>;
-    }
+    multiple?: true;
+    onChange$?: QRL<(value: string[]) => void>;
+  }
   | {
-      multiple?: false;
-      onChange$?: QRL<(value: string) => void>;
-    };
+    multiple?: false;
+    onChange$?: QRL<(value: string) => void>;
+  };
 
-export type HComboboxRootImplProps<M extends boolean = boolean> = Omit<
-  Omit<PropsOf<'div'>, 'onInput$'>,
-  'onChange$'
-> & {
-  /** A signal that controls the current selected value (controlled). */
+/**
+ * Below is the Combobox's public type
+ * For more information, check here:
+ * website/auto-api.ts
+ */
+type PublicComboboxRootProps<M extends boolean = boolean> = {
+  /** Uncontrolled combobox value.*/
+  value?: string;
+  /** A signal that controls the current selected value (controlled).*/
   'bind:value'?: Signal<TMultiple<M>>;
 
-  /** A signal that controls the current open state (controlled). */
+  /** A signal that controls the current open state (controlled).*/
   'bind:open'?: Signal<boolean>;
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  /** Controlled display value, manages the display items.*/
   'bind:displayValue'?: Signal<TMultiple<M>>;
 
   /**
@@ -112,8 +116,14 @@ export type HComboboxRootImplProps<M extends boolean = boolean> = Omit<
   hasErrorComp?: boolean;
 
   removeOnBackspace?: boolean;
-} & TMultiValue &
-  TStringOrArray;
+};
+export type HComboboxRootImplProps<_ extends boolean = boolean> = Omit<
+  Omit<PropsOf<'div'>, 'onInput$'>,
+  'onChange$'
+> &
+  TMultiValue &
+  TStringOrArray &
+  PublicComboboxRootProps;
 
 export const HComboboxRootImpl = component$<
   HComboboxRootImplProps<boolean> & InternalComboboxProps

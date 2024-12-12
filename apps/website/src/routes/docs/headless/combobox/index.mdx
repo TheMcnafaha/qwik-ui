@@ -4,6 +4,10 @@ title: Qwik UI | Combobox
 
 import { statusByComponent } from '~/_state/component-statuses';
 
+import { AutoAPI } from '~/components/api-table/auto-api';
+
+import { api } from './auto-api/api';
+
 <StatusBanner status={statusByComponent.headless.Combobox} />
 
 # Combobox
@@ -511,3 +515,7 @@ When in multi select mode, additional keyboard interactions are available.
     },
   ]}
 />
+
+## API
+
+<AutoAPI api={api} />
