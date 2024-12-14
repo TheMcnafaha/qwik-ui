@@ -16,6 +16,7 @@ type AutoAPIConfig = {
   topHeader?: QRL<(text: string) => JSXOutput>;
   subHeader?: QRL<(text: string) => JSXOutput>;
   props?: QRL<(text: string) => string>;
+  comments?: QRL<(text: string) => JSXOutput>;
 };
 
 type AnatomyTableProps = {
@@ -31,6 +32,35 @@ type ParsedCommentsProps = {
   parsedProps: PublicType;
   config: AutoAPIConfig;
 };
+
+const addMarkdownAnchor = $((text: string) => {
+  function getRegex() {
+    //definitely one of the regexes of all time
+    return /\[([\w\W]+)\]\(([\w\W]+)\)/;
+  }
+  const isAnchor = getRegex().exec(text);
+
+  if (isAnchor) {
+    const fullTemplate = isAnchor[0];
+    const strg = isAnchor[1];
+    const url = isAnchor[2];
+    const anchor = <a href={url}>{strg}</a>;
+    const pre = text.slice(0, isAnchor.index);
+    const post = text.slice(isAnchor.index + fullTemplate.length);
+
+    //its best to return an empty jsx tag becasue the table may render text inside a p tag
+    //ie: don't nest p tags, so pass emptry jsx fragment and let the APITable deal with it
+    return (
+      <>
+        {pre}
+        {anchor}
+        {post}
+      </>
+    );
+  }
+
+  return text;
+});
 const currentHeader = $(() => {
   //cannot send h2 from here because current TOC can only read md
   return null;
@@ -58,6 +88,7 @@ const defaultConfig: AutoAPIConfig = {
   topHeader: currentHeader,
   subHeader: currentSubHeader,
   props: removeQuestionMarkFromProp,
+  comments: addMarkdownAnchor,
 };
 export const AutoAPI = component$<AnatomyTableProps>(
   ({ api, config = defaultConfig }) => {
@@ -124,6 +155,12 @@ const ParsedComments = component$<ParsedCommentsProps>(({ parsedProps, config })
     if (config.props) {
       for (const props of translation.propDescriptors) {
         props.name = await config.props(props.name);
+      }
+    }
+    if (config.comments) {
+      for (const props of translation.propDescriptors) {
+        const magic = config.comments(props.description);
+        props.description = magic;
       }
     }
     appliedPropsSig.value = translation;
