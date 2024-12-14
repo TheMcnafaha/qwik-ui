@@ -1,4 +1,4 @@
-import { component$ } from '@builder.io/qwik';
+import { JSXOutput, component$ } from '@builder.io/qwik';
 import { InfoPopup } from '../info-popup/info-popup';
 export type APITableProps = {
   propDescriptors: {
@@ -9,7 +9,16 @@ export type APITableProps = {
   }[];
 };
 
-export const APITable = component$(({ propDescriptors }: APITableProps) => {
+export type OutputAPITablProps = {
+  propDescriptors: {
+    name: string;
+    info?: string;
+    type: string;
+    description: string | JSXOutput;
+  }[];
+};
+
+export const APITable = component$(({ propDescriptors }: OutputAPITablProps) => {
   return (
     <div class="overflow-auto">
       <table class="mb-6 w-full min-w-[540px] border-b text-left sm:min-w-full">
