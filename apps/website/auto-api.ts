@@ -118,7 +118,7 @@ function parseSingleComponentFromDir(
       }
       if (capture.name === 'comment') {
         // This removes the comment syntax
-        const justText = capture.node.text.replace(/[/*]/g, '').trim();
+        const justText = capture.node.text.replace(/^[/*]+|[/*]+$/g, '').trim();
         parsedProps.comment = justText;
       }
       if (capture.name === 'prop') {
